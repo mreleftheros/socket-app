@@ -36,7 +36,7 @@
 
   ws.onclose = () => ws = null;
 
-  const send = (type, payload) => ws.send(JSON.stringify({type, payload}));
+  const send = (type, payload) => ws && ws.send(JSON.stringify({type, payload}));
 
   setContext('ws', {
     ws,
