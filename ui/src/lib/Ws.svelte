@@ -32,8 +32,6 @@
     }
   }
 
-  ws.onerror = () => ws.close();
-
   ws.onclose = () => ws = null;
 
   const send = (type, payload) => ws.send(JSON.stringify({type, payload}));
