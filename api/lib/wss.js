@@ -1,7 +1,7 @@
 const { WebSocketServer } = require('ws');
 const { addUi, removeUi, broadcast, getUi, getUsernames } = require('../utils/wss');
 
-const wss = new WebSocketServer({ port: 8000 });
+const wss = new WebSocketServer({ port: 8100 });
 
 wss.on('connection', ws => {
   ws.on('message', data => {
