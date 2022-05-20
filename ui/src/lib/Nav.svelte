@@ -1,24 +1,25 @@
 <script>
   import NavLink from './NavLink.svelte';
   import Button from './Button.svelte';
+  import { getContext } from 'svelte';
 
-  const auth = true;
+  const auth = getContext('auth');
 </script>
 
 <nav class="nav">
   <div class="logo-box">
-    <NavLink text='Socket App' active={false} />
+    <NavLink text='Socket App' active />
   </div>
   <ul class="links">
-    {#if auth}
+    {#if $auth}
       <li class="link">
-        Welcome, <span class="name">John</span>
+        Welcome, <span class="name">{$auth.username}</span>
       </li>
       <li class="link">
         <NavLink to='/profile' text='My Profile' />
       </li>
       <li class="link">
-        <Button text='Logout' bg='navy' />
+        <Button text='Logout' bg='navy' onClick={auth.logout} />
       </li>
     {:else}
       <li class="link">

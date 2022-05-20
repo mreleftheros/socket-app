@@ -80,7 +80,12 @@ class User {
   }
 
   static async getById(id) {
-    const { _id, username } = await col.findOne({ _id: getId(id) });
+    const result = await col.findOne({ _id: getId(id) });
+
+    return {
+      _id: result._id.toString(),
+      username: result.username,
+    };
   }
 }
 

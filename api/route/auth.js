@@ -23,7 +23,7 @@ router.post('/signup', async (req, res) => {
 
     res.cookie('access-token', token, cookieOpts);
 
-    return res.status(201).json({ _id, username, token });
+    return res.status(201).json({ _id, username });
   } catch (err) {
     console.log(err.message);
     return res.status(500).json({ error: err.message });
@@ -48,7 +48,7 @@ router.post('/login', async (req, res) => {
 
     res.cookie('access-token', token, cookieOpts);
 
-    return res.json({ _id: result._id, username, token });
+    return res.json({ _id: result._id, username });
   } catch (err) {
     console.log(err.message);
     return res.status(500).json({ error: err.message });
