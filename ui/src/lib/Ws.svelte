@@ -2,7 +2,7 @@
 	import { setContext, getContext, onDestroy } from "svelte";
   import { chat } from '../store/chat';  
   
-  let ws = new WebSocket(`wss://${window.location.hostname}:8100`);
+  let ws = new WebSocket(`wss://${window.location.hostname}:8200`);
   const auth = getContext('auth');
   $: id = $chat.messages.length > 0 ? Math.max(...$chat.messages.map(msg => msg.id)) + 1 : 0;
 

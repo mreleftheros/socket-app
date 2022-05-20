@@ -7,7 +7,7 @@ const {
   getUsernames,
 } = require('../utils/wss');
 
-const wss = new WebSocketServer({ port: 8100 });
+const wss = new WebSocketServer({ port: 8200 });
 
 wss.on('connection', ws => {
   ws.on('message', data => {
