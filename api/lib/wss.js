@@ -1,7 +1,13 @@
 const { WebSocketServer } = require('ws');
-const { addUi, removeUi, broadcast, getUi, getUsernames } = require('../utils/wss');
+const {
+  addUi,
+  removeUi,
+  broadcast,
+  getUi,
+  getUsernames,
+} = require('../utils/wss');
 
-const wss = new WebSocketServer({ port: 8100 });
+const wss = new WebSocketServer({ port: 8080 });
 
 wss.on('connection', ws => {
   ws.on('message', data => {
@@ -26,7 +32,7 @@ wss.on('connection', ws => {
           message: `User ${payload.username} connected to the chatroom.`,
         });
         broadcast('SET_ONLINE', {
-          online: getUsernames()
+          online: getUsernames(),
         });
         break;
       case 'SET_MESSAGE':
@@ -34,7 +40,7 @@ wss.on('connection', ws => {
 
         broadcast('SET_MESSAGE', {
           username,
-          message
+          message,
         });
         break;
     }
@@ -44,7 +50,7 @@ wss.on('connection', ws => {
     console.log('dc');
     removeUi(ws);
     broadcast('SET_ONLINE', {
-      online: getUsernames()
+      online: getUsernames(),
     });
   });
 
