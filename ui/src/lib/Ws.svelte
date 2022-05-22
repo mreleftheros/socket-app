@@ -21,7 +21,13 @@
       },
     });
 
-    $ws.onopen = () => $ws.send(set_ws_msg);
+    $ws.onopen = () => {
+      if ($ws.readyState !== 1) {
+        setTimeout(() => $ws.send(set_ws_msg), 500);
+      } else {
+        $ws.send(set_ws_msg);
+      }
+    };
 
     $ws.onmessage = ({ data }) => {
       data = JSON.parse(data);
