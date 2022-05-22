@@ -13,21 +13,17 @@
 
   onMount(() => {
     $ws = new WebSocket(`wss://${window.location.hostname}`);
-    let set_ws_msg = JSON.stringify({
-      type: 'SET_WS',
-      payload: {
-        _id: $auth._id,
-        username: $auth.username,
-      },
-    });
 
-    $ws.onopen = () => {
-      if ($ws.readyState !== 1) {
-        setTimeout(() => $ws.send(set_ws_msg), 500);
-      } else {
-        $ws.send(set_ws_msg);
-      }
-    };
+    $ws.onopen = () =>
+      $ws.send(
+        JSON.stringify({
+          type: 'SET_WS',
+          payload: {
+            _id: $auth._id,
+            username: $auth.username,
+          },
+        })
+      );
 
     $ws.onmessage = ({ data }) => {
       data = JSON.parse(data);
