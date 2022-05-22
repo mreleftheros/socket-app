@@ -58,9 +58,10 @@ wss.on('connection', ws => {
     broadcast('SET_ONLINE', {
       online: getUsernames(),
     });
-  });
-  broadcast('SET_MESSAGE', {
-    message: `User ${username} disconnected from the chatroom.`,
+
+    broadcast('SET_MESSAGE', {
+      message: `User ${username} disconnected from the chatroom.`,
+    });
   });
 
   broadcast('SET_HANDSHAKE', null, ws);
