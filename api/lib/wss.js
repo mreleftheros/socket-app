@@ -6,8 +6,12 @@ const {
   getUi,
   getUsernames,
 } = require('../utils/wss');
+const http = require('http');
+const app = require('../app');
 
-const wss = new WebSocketServer({ port: 8100 });
+const server = http.createServer(app);
+
+const wss = new WebSocketServer({ server });
 
 wss.on('connection', ws => {
   ws.on('message', data => {
@@ -58,4 +62,7 @@ wss.on('connection', ws => {
   broadcast('SET_HANDSHAKE', null, ws);
 });
 
-module.exports = wss;
+module.exports = {
+  wss,
+  server,
+};

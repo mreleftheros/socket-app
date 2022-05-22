@@ -9,7 +9,6 @@
   $: if (!message && inputRef) {
     inputRef.focus();
   }
-  $: $ws && console.log($ws.readyState);
 
   const handleSubmit = () => {
     if (!message) return;

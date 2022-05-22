@@ -1,5 +1,5 @@
 <script>
-  import { setContext, getContext, onMount, tick } from 'svelte';
+  import { setContext, getContext, onMount } from 'svelte';
   import { chat } from '../store/chat';
   import { ws } from '../store/ws';
 
@@ -12,7 +12,7 @@
   setContext('ws', ws);
 
   onMount(() => {
-    $ws = new WebSocket(`wss://${window.location.hostname}:8100`);
+    $ws = new WebSocket(`wss://${window.location.hostname}`);
     let set_ws_msg = JSON.stringify({
       type: 'SET_WS',
       payload: {
@@ -22,11 +22,9 @@
     });
 
     $ws.onopen = () => {
-      console.log('opening connection...');
       if ($ws.readyState !== 1) {
         setTimeout(() => $ws.send(set_ws_msg), 500);
       } else {
-        console.log('sent');
         $ws.send(set_ws_msg);
       }
     };
@@ -34,12 +32,11 @@
     $ws.onmessage = ({ data }) => {
       data = JSON.parse(data);
       const { type, payload } = data;
-      console.log('message', data);
 
       switch (type) {
         case 'SET_WS':
           if (payload.error) {
-            socket.close();
+            $ws.close();
           }
           break;
         case 'SET_MESSAGE':
