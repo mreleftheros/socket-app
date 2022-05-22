@@ -3,8 +3,9 @@ const {
   addUi,
   removeUi,
   broadcast,
-  getUi,
+  getUiById,
   getUsernames,
+  getUiyByWs,
 } = require('../utils/wss');
 const http = require('http');
 const app = require('../app');
@@ -20,7 +21,7 @@ wss.on('connection', ws => {
 
     switch (type) {
       case 'SET_WS':
-        const ui = getUi(payload._id);
+        const ui = getUiById(payload._id);
 
         if (ui) {
           return broadcast(
@@ -52,11 +53,14 @@ wss.on('connection', ws => {
   });
 
   ws.on('close', () => {
-    console.log('dc');
+    const { username } = getUiyByWs(ws);
     removeUi(ws);
     broadcast('SET_ONLINE', {
       online: getUsernames(),
     });
+  });
+  broadcast('SET_MESSAGE', {
+    message: `User ${username} disconnected from the chatroom.`,
   });
 
   broadcast('SET_HANDSHAKE', null, ws);

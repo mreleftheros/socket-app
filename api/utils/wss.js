@@ -7,7 +7,9 @@ exports.removeUi = ws => {
   return uis.splice(index, 1);
 };
 
-exports.getUi = id => uis.find(ui => ui._id === id);
+exports.getUiById = id => uis.find(ui => ui._id === id);
+
+exports.getUiyByWs = ws => uis.find(ui => ui.ws === ws);
 
 exports.broadcast = (type, payload, to) => {
   if (to) {
