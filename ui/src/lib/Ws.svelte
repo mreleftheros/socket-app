@@ -12,7 +12,7 @@
   setContext('ws', ws);
 
   onMount(() => {
-    $ws = new WebSocket(`ws://${window.location.hostname}:8100`);
+    $ws = new WebSocket(`wss://${window.location.hostname}:8100`);
     let set_ws_msg = JSON.stringify({
       type: 'SET_WS',
       payload: {
