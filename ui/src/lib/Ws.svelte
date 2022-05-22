@@ -1,47 +1,60 @@
 <script>
-	import { setContext, getContext, onDestroy } from "svelte";
+  import { setContext, getContext, onMount, tick } from 'svelte';
   import { chat } from '../store/chat';
-  
-  let ws = new WebSocket(`wss://${window.location.hostname}:8100`);
+  import { ws } from '../store/ws';
+
   const auth = getContext('auth');
-  $: id = $chat.messages.length > 0 ? Math.max(...$chat.messages.map(msg => msg.id)) + 1 : 0;
+  $: id =
+    $chat.messages.length > 0
+      ? Math.max(...$chat.messages.map(msg => msg.id)) + 1
+      : 0;
 
-  ws.onopen = () => {
-    send('SET_WS', {
-      _id: $auth._id,
-      username: $auth.username
-    })
-  }
+  setContext('ws', ws);
 
-  ws.onmessage = ({data}) => {
-    data = JSON.parse(data);
-    const { type, payload } = data;
+  onMount(() => {
+    $ws = new WebSocket(`ws://${window.location.hostname}:8100`);
+    let set_ws_msg = JSON.stringify({
+      type: 'SET_WS',
+      payload: {
+        _id: $auth._id,
+        username: $auth.username,
+      },
+    });
 
-    switch (type) {
-      case 'SET_WS':
-        if (payload.error) {
-          ws.close();
-        }
-        break;
-      case 'SET_MESSAGE':
-        const { username, message } = payload;
-        return chat.setMessage(id, username, message);
-      case 'SET_ONLINE':
-        const {online} = payload;
-        return chat.setOnline(online);
-    }
-  }
+    $ws.onopen = () => {
+      console.log('opening connection...');
+      if ($ws.readyState !== 1) {
+        setTimeout(() => $ws.send(set_ws_msg), 500);
+      } else {
+        console.log('sent');
+        $ws.send(set_ws_msg);
+      }
+    };
 
-  ws.onclose = () => ws = null;
+    $ws.onmessage = ({ data }) => {
+      data = JSON.parse(data);
+      const { type, payload } = data;
+      console.log('message', data);
 
-  const send = (type, payload) => ws.send(JSON.stringify({type, payload}));
+      switch (type) {
+        case 'SET_WS':
+          if (payload.error) {
+            socket.close();
+          }
+          break;
+        case 'SET_MESSAGE':
+          const { username, message } = payload;
+          return chat.setMessage(id, username, message);
+        case 'SET_ONLINE':
+          const { online } = payload;
+          return chat.setOnline(online);
+      }
+    };
 
-  setContext('ws', {
-    ws,
-    onSend: send
+    $ws.onclose = () => ($ws = null);
+
+    return () => $ws.close();
   });
-
-  onDestroy(() => ws.close())
 </script>
 
 <slot />

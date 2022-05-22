@@ -1,6 +1,5 @@
 <script>
   import { chat } from '../store/chat';
-  
 </script>
 
 <div class="box">
@@ -8,13 +7,11 @@
   <ul class="list">
     {#each $chat.online as person, i (i)}
       <li class="item">
-        <span class="status">
-          🟢
-        </span>
+        <span class="status"> 🟢 </span>
         <div class="username">
           {person}
         </div>
-      </li>  
+      </li>
     {/each}
   </ul>
 </div>
@@ -36,16 +33,16 @@
     overflow-y: auto;
     flex: 1;
     height: 20rem;
-    padding: .5rem;
+    padding: 0.5rem;
   }
 
   .item {
     display: flex;
     align-items: center;
-    padding: .5rem .5rem .5rem 1rem;
-    margin: .5rem 0;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+    margin: 0.5rem 0;
     border-radius: 1rem;
-    background-color: rgba(255, 165, 0, .3);
+    background-color: rgba(255, 165, 0, 0.3);
   }
 
   .status {

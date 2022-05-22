@@ -11,6 +11,9 @@ const setMessage = (id, username = 'All', message) =>
     messages: [...c.messages, { id, username, message }],
   }));
 
+const removeFirstMessage = () =>
+  _chat.update(c => ({ ...c, messages: c.messages.slice(1) }));
+
 const setOnline = online => _chat.update(c => ({ ...c, online }));
 
 const reset = () =>
@@ -22,6 +25,7 @@ const reset = () =>
 export const chat = {
   subscribe: _chat.subscribe,
   setMessage,
+  removeFirstMessage,
   reset,
-  setOnline
+  setOnline,
 };

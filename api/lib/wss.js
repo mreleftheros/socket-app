@@ -27,6 +27,7 @@ wss.on('connection', ws => {
             ws
           );
         }
+
         addUi({ ws, ...payload });
         broadcast('SET_MESSAGE', {
           message: `User ${payload.username} connected to the chatroom.`,

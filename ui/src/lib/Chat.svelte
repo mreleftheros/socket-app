@@ -25,9 +25,9 @@
     display: grid;
     grid-template-rows: 90% 10%;
     grid-template-columns: 1fr 15rem;
-    grid-template-areas: 
-    "messages online"
-    "chatForm online";
+    grid-template-areas:
+      'messages online'
+      'chatForm online';
   }
 
   .messages {
