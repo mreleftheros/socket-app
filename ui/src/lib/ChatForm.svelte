@@ -44,7 +44,9 @@
 
 <style>
   .form {
+    height: 100%;
     display: flex;
+    flex-direction: column;
   }
 
   .input {
@@ -52,5 +54,11 @@
     outline: none;
     font-size: 2rem;
     padding: 0.5rem;
+  }
+
+  @media only screen and (min-width: 50rem) {
+    .form {
+      flex-direction: row;
+    }
   }
 </style>

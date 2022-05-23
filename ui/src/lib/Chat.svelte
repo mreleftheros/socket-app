@@ -21,13 +21,14 @@
 
 <style>
   .box {
-    height: 100%;
     display: grid;
-    grid-template-rows: 90% 10%;
-    grid-template-columns: 1fr 15rem;
+    grid-template-columns: 100%;
+    grid-template-rows: 1fr minmax(5rem, auto);
     grid-template-areas:
-      'messages online'
-      'chatForm online';
+      'messages'
+      'chatForm';
+    height: 100%;
+    width: 100%;
   }
 
   .messages {
@@ -35,10 +36,25 @@
   }
 
   .online {
+    display: none;
     grid-area: online;
   }
 
   .chatForm {
     grid-area: chatForm;
+  }
+
+  @media only screen and (min-width: 50rem) {
+    .box {
+      grid-template-columns: 1fr minmax(auto, 15rem);
+      grid-template-rows: 90% 10%;
+      grid-template-areas:
+        'messages online'
+        'chatForm online';
+    }
+
+    .online {
+      display: block;
+    }
   }
 </style>

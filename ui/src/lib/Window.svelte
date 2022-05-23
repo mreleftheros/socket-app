@@ -14,9 +14,9 @@
 <style>
   .window {
     position: relative;
-    width: 80rem;
-    max-width: 90%;
-    height: 40rem;
+    width: 100%;
+    max-width: 80rem;
+    height: 60rem;
     background-color: rgba(0, 0, 128, 0.75);
     color: #fff;
     padding: 0.5rem;
@@ -28,6 +28,12 @@
     position: absolute;
     top: 0.5%;
     left: 99.5%;
-    transform: translate(-80%, -10%) scale(0.5);
+    transform: translate(-80%, -10%) scale(0.75);
+  }
+
+  @media only screen and (min-width: 50rem) {
+    .close {
+      transform: translate(-80%, -10%) scale(0.5);
+    }
   }
 </style>

@@ -32,22 +32,31 @@
     overflow-y: auto;
     background-color: #fff;
     color: #111;
-    padding: 0.5rem;
     height: 100%;
     border-radius: 0.5rem;
   }
 
   .item {
-    padding: 1rem;
     margin: 0.5rem auto;
-    border-radius: 1.5rem;
     background-color: rgba(255, 165, 0, 0.5);
     font-size: 1.5rem;
+    padding: .5rem 0;
   }
 
   .username {
     display: inline-block;
     font-weight: 900;
     color: navy;
+  }
+
+  @media only screen and (min-width: 50rem) {
+    .list {
+      padding: 0.5rem;
+    }
+
+    .item {
+      padding: 1rem;
+      border-radius: 1.5rem;
+    }
   }
 </style>

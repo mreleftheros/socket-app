@@ -12,7 +12,7 @@
   setContext('ws', ws);
 
   onMount(() => {
-    $ws = new WebSocket(`wss://${window.location.hostname}`);
+    $ws = new WebSocket(`ws://${window.location.hostname}:8100`);
 
     $ws.onopen = () =>
       $ws.send(

@@ -7,12 +7,11 @@ const {
   getUsernames,
   getUiyByWs,
 } = require('../utils/wss');
-const http = require('http');
-const app = require('../app');
+const { server } = require('../index');
 
-const server = http.createServer(app);
-
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer(
+  process.env.NODE.ENV === 'production' ? { server } : { port: 8100 }
+);
 
 wss.on('connection', ws => {
   ws.on('message', data => {
@@ -68,6 +67,5 @@ wss.on('connection', ws => {
 });
 
 module.exports = {
-  wss,
-  server,
+  wss
 };

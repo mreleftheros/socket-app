@@ -18,7 +18,7 @@
 
 <style>
   .box {
-    display: flex;
+    display: none;
     flex-direction: column;
     height: 100%;
     user-select: none;
@@ -32,7 +32,6 @@
   .list {
     overflow-y: auto;
     flex: 1;
-    height: 20rem;
     padding: 0.5rem;
   }
 
@@ -53,5 +52,11 @@
 
   .username {
     flex: 1;
+  }
+
+  @media only screen and (min-width: 50rem) {
+    .box {
+      display: flex;
+    }
   }
 </style>
