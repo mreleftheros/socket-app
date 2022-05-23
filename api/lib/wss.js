@@ -9,9 +9,10 @@ const {
 } = require('../utils/wss');
 const { server } = require('../index');
 
-const wss = new WebSocketServer(
-  process.env.NODE_ENV === 'production' ? { server } : { port: 8100 }
-);
+const wss =
+  process.env.NODE_ENV === 'production'
+    ? new WebSocketServer({ server })
+    : new WebSocketServer({ port: 8100 });
 
 wss.on('connection', ws => {
   ws.on('message', data => {
@@ -67,5 +68,5 @@ wss.on('connection', ws => {
 });
 
 module.exports = {
-  wss
+  wss,
 };
