@@ -15,7 +15,6 @@ const {
   getUsernames,
   getUiyByWs,
 } = require('./utils/wss');
-const { server } = require('../index');
 
 const wss = new WebSocketServer(
   process.env.NODE_ENV === 'production' ? { server } : { port: 8100 }
