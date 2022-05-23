@@ -9,9 +9,7 @@ const {
 } = require('../utils/wss');
 const { server } = require('../index');
 
-let opts = process.env.NODE_ENV === 'production' ? { server } : { port: 8100 };
-
-const wss = new WebSocketServer(opts);
+const wss = new WebSocketServer({ server });
 
 wss.on('connection', ws => {
   ws.on('message', data => {
